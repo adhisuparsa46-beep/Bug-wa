@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090909">
+<title>WA VIRUS X — Cyber Security Lab</title>
+<style>
+:root{--red:#ff253a;--bg:#08090d;--panel:#13151c;--muted:#a5a8b3}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#301018 0,#08090d 48%);color:#f5f5f7;font:15px system-ui,Arial}
+main{max-width:760px;margin:auto;padding:22px 16px 40px}.brand{text-align:center;padding:20px 0 24px}
+.logo{font-size:34px;font-weight:900;letter-spacing:3px;color:var(--red);text-shadow:0 0 22px #ff253a80}
+.sub{color:var(--muted);letter-spacing:2px;font-size:11px}
+.panel{background:linear-gradient(145deg,#191b24,#0e1016);border:1px solid #63202b;border-radius:16px;padding:18px;margin:14px 0;box-shadow:0 12px 40px #0008}
+h2{font-size:14px;letter-spacing:1.5px;color:#ff6574;margin:0 0 14px}
+.status{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.pill{border:1px solid #2f9c70;color:#75efb7;padding:6px 10px;border-radius:30px;font-size:11px}
+button{border:0;border-radius:10px;padding:13px 15px;background:var(--red);color:white;font-weight:800;letter-spacing:.5px;width:100%;margin-top:10px}
+button.secondary{background:#292d38;border:1px solid #454b5b}
+button:active{transform:scale(.99)}.meter{height:9px;background:#292c35;border-radius:9px;overflow:hidden;margin:14px 0}
+#bar{height:100%;width:0;background:linear-gradient(90deg,#ff253a,#ff8a45);transition:width .2s}
+#log{height:170px;overflow:auto;background:#050609;border:1px solid #292d38;border-radius:10px;padding:12px;font:12px/1.7 ui-monospace,monospace;color:#8fffc0}
+.small{color:var(--muted);font-size:12px;line-height:1.6}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{padding:12px;background:#0b0d12;border:1px solid #292d38;border-radius:10px}.tile b{display:block;color:#ff7884;margin-bottom:4px}
+.warning{border-color:#8a6125}.warning h2{color:#ffc56c}
+footer{text-align:center;color:#777;font-size:11px;margin-top:24px}
+</style></head>
+<body><main>
+<header class="brand"><div class="logo">WA VIRUS X</div><div class="sub">CYBER SECURITY LAB • ANDROID EDITION</div></header>
+<section class="panel"><div class="status"><div><h2>DEVICE SECURITY STATUS</h2><strong id="state">READY — BELUM DIPINDAI</strong></div><span class="pill">SAFE MODE</span></div>
+<div class="meter"><div id="bar"></div></div><div class="small" id="progress">Pemindaian lokal simulasi. Halaman ini tidak dapat membaca isi WhatsApp atau memindai aplikasi lain.</div>
+<button id="scan">MULAI PEMERIKSAAN</button><button class="secondary" id="stop">HENTIKAN</button></section>
+<section class="panel"><h2>SECURITY MODULES</h2><div class="grid">
+<div class="tile"><b>Permission Guide</b><span class="small">Panduan memeriksa izin aplikasi di Pengaturan Android.</span></div>
+<div class="tile"><b>Threat Awareness</b><span class="small">Tips mengenali tautan dan file mencurigakan.</span></div>
+<div class="tile"><b>Local Log</b><span class="small">Catatan aktivitas simulasi pada halaman ini.</span></div>
+<div class="tile"><b>Safe Mode</b><span class="small">Tidak mengirim pesan atau mengubah perangkat.</span></div>
+</div></section>
+<section class="panel"><h2>LIVE TERMINAL</h2><div id="log" aria-live="polite">[SYSTEM] WA VIRUS X initialized<br>[SAFE] No device changes will be made.</div></section>
+<section class="panel warning"><h2>PERIKSA WHATSAPP SECARA NYATA</h2>
+<p class="small">Buka WhatsApp → Setelan → Perangkat tertaut. Keluarkan sesi yang tidak kamu kenali. Jangan bagikan kode OTP atau PIN. Perbarui WhatsApp dari toko aplikasi resmi.</p>
+<button class="secondary" id="guide">TAMPILKAN PANDUAN IZIN ANDROID</button>
+<p class="small" id="guideText"></p></section>
+<footer>WA VIRUS X • DEMO KEAMANAN LOKAL • BUKAN VIRUS</footer>
+</main>
+<script>
+const log=document.getElementById('log'),bar=document.getElementById('bar'),state=document.getElementById('state'),progress=document.getElementById('progress');
+let timer=null;
+function add(s){log.innerHTML+='[ '+new Date().toLocaleTimeString()+' ] '+s+'<br>';log.scrollTop=log.scrollHeight}
+document.getElementById('scan').onclick=()=>{
+ if(timer)clearInterval(timer);let n=0;bar.style.width='0%';state.textContent='PEMERIKSAAN BERJALAN';add('Starting safe local check...');
+ const steps=['Memeriksa status halaman lokal...','Menyiapkan checklist keamanan...','Tidak ada akses ke data WhatsApp.','Menyelesaikan pemeriksaan simulasi...'];
+ timer=setInterval(()=>{n++;bar.style.width=(n*25)+'%';progress.textContent=steps[n-1];add(steps[n-1]);
+ if(n===4){clearInterval(timer);timer=null;state.textContent='SELESAI — TINDAKAN DIPERLUKAN: 0';progress.textContent='Pemeriksaan demo selesai. Ini bukan pemindaian antivirus perangkat.';add('Done. No device settings changed.');}},650);
+};
+document.getElementById('stop').onclick=()=>{if(timer)clearInterval(timer);timer=null;state.textContent='DIHENTIKAN';progress.textContent='Pemeriksaan lokal dihentikan.';add('Check stopped by user.')};
+document.getElementById('guide').onclick=()=>{document.getElementById('guideText').textContent='Pengaturan Android → Aplikasi → WhatsApp → Izin. Tinjau izin yang diberikan. Nama menu dapat berbeda menurut versi Android.';add('Displayed Android permission guide.')};
+</script></body></html>
